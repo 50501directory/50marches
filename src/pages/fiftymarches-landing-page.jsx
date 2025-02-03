@@ -27,10 +27,10 @@ export default function FiftyMarchesLandingPage() {
             <Button variant="default" size="lg" className="rounded-2xl shadow-xl transition-transform transform hover:scale-105">
               Host a March
             </Button>
-            <Button className="bg-blue-600 hover:bg-blue-700 rounded-2xl shadow-xl px-6 py-2 font-semibold transition-transform transform hover:scale-105">
+            <Button variant="default" size="lg" className="rounded-2xl shadow-xl transition-transform transform hover:scale-105">
               Find a March Near You
             </Button>
-            <Button className="bg-blue-600 hover:bg-blue-700 rounded-2xl shadow-xl px-6 py-2 font-semibold transition-transform transform hover:scale-105">
+            <Button variant="default" size="lg" className="rounded-2xl shadow-xl transition-transform transform hover:scale-105">
               Join Our Mailing List
             </Button>
           </div>
