@@ -15,7 +15,7 @@ export default function FiftyMarchesLandingPage() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="relative max-w-3xl mx-auto text-white py-16 px-4"
+          className="relative w-4/5 max-w-[500px] mx-auto text-white py-16 px-4"
         >
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-md">
             50 States, 50 Capitals, 50 Marches
