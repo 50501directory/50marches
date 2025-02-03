@@ -24,7 +24,7 @@ export default function FiftyMarchesLandingPage() {
             On 2/5/25, Americans unite to oppose Project 2025—together, we are #50Marches
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-blue-600 hover:bg-blue-700 rounded-2xl shadow-xl px-6 py-2 font-semibold transition-transform transform hover:scale-105">
+            <Button variant="default" size="lg" className="rounded-2xl shadow-xl transition-transform transform hover:scale-105">
               Host a March
             </Button>
             <Button className="bg-blue-600 hover:bg-blue-700 rounded-2xl shadow-xl px-6 py-2 font-semibold transition-transform transform hover:scale-105">
