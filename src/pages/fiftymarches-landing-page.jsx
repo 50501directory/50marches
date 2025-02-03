@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
+import { ActionNetworkWidget } from "../components/action-network-widget.tsx";
 
 export default function FiftyMarchesLandingPage() {
   return (
@@ -8,7 +9,7 @@ export default function FiftyMarchesLandingPage() {
       {/* Hero Section with Background Image Placeholder */}
       <section
         className="relative p-8 text-center bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: "url('https://via.placeholder.com/1600x800')" }}
+        style={{ backgroundImage: "url('./assets/wontbackdown.png')" }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-40" /> {/* Dark overlay */}
         <motion.div
@@ -18,21 +19,44 @@ export default function FiftyMarchesLandingPage() {
           className="relative w-4/5 max-w-[500px] mx-auto text-white py-16 px-4"
         >
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-md">
-            50 States, 50 Capitals, 50 Marches
+            50 States <br></br>50 Capitals <br></br>50 Marches
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl mb-6 drop-shadow">
             On 2/5/25, Americans unite to oppose Project 2025—together, we are #50Marches
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="default" size="lg" className="rounded-2xl shadow-xl transition-transform transform hover:scale-105">
-              Host a March
+            <a 
+              href="https://actionnetwork.org/events/a6e8df1602414d3f2cee8e93a0e4398398607189/edit"
+              rel="noopener noreferrer"
+            >
+              <Button variant="default" size="lg" className="rounded-2xl shadow-xl transition-transform transform hover:scale-105">
+                Host a March
+              </Button>
+            </a>
+            <a
+              href="https://actionnetwork.org/event_campaigns/50-marches"
+              rel="noopener noreferrer"
+            >
+              <Button
+                variant="default"
+                size="lg"
+                className="rounded-2xl shadow-xl transition-transform transform hover:scale-105"
+              >
+                Find a March Near You
             </Button>
-            <Button variant="default" size="lg" className="rounded-2xl shadow-xl transition-transform transform hover:scale-105">
-              Find a March Near You
+            </a>
+            <a
+              href="https://actionnetwork.org/event_campaigns/50-marches"
+              rel="noopener noreferrer"
+            >
+              <Button
+                variant="default"
+                size="lg"
+                className="rounded-2xl shadow-xl transition-transform transform hover:scale-105"
+              >
+                Join Our Mailing List
             </Button>
-            <Button variant="default" size="lg" className="rounded-2xl shadow-xl transition-transform transform hover:scale-105">
-              Join Our Mailing List
-            </Button>
+            </a>
           </div>
         </motion.div>
       </section>
@@ -73,9 +97,9 @@ export default function FiftyMarchesLandingPage() {
           </div>
           <div className="md:w-1/2">
             <img
-              src="https://via.placeholder.com/600x400"
-              alt="Why We March Placeholder"
-              className="w-full h-auto rounded-2xl shadow-xl transform transition-transform hover:scale-105"
+              src="./assets/50_marches.jpg"
+              alt="Why We March"
+              className="w-1/2 h-auto mx-auto rounded-2xl shadow-xl transform transition-transform hover:scale-105"
             />
           </div>
         </motion.div>
@@ -106,9 +130,9 @@ export default function FiftyMarchesLandingPage() {
         >
           <div className="md:w-1/2 mb-4 md:mb-0">
             <img
-              src="https://via.placeholder.com/600x400"
-              alt="Plan Your Protest Placeholder"
-              className="w-full h-auto rounded-2xl shadow-xl transform transition-transform hover:scale-105"
+              src="./assets/planning_protest.webp"
+              alt="Plan Your Protest"
+              className="w-2/3 h-auto mx-auto rounded-2xl shadow-xl transform transition-transform hover:scale-105"
             />
           </div>
           <div className="md:w-1/2">
@@ -163,9 +187,9 @@ export default function FiftyMarchesLandingPage() {
           </div>
           <div className="md:w-1/2">
             <img
-              src="https://via.placeholder.com/600x400"
-              alt="Host a March Placeholder"
-              className="w-full h-auto rounded-2xl shadow-xl transform transition-transform hover:scale-105"
+              src="./assets/protect_democracy.webp"
+              alt="Host a March"
+              className="w-2/3 h-auto mx-auto rounded-2xl shadow-xl transform transition-transform hover:scale-105"
             />
           </div>
         </motion.div>
@@ -196,14 +220,16 @@ export default function FiftyMarchesLandingPage() {
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-blue-800">Use Action Network to Mobilize</h2>
           <p className="mb-4 text-lg">
-            Action Network is a powerful, user-friendly platform that helps grassroots organizers host events, track RSVPs,
+            50 Marches uses Action Network as a tool for organizing. If you're building your own movement, we recommend you work with them as well. 
+            Action Network is a powerful platform that helps grassroots organizers host events, track RSVPs,
             send emails, and more. It's an essential tool for bringing people together quickly and effectively.
           </p>
+          <a href="https://actionnetwork.org/">
           <img
-            src="https://via.placeholder.com/800x400"
+            src="https://actionnetwork.org/user_files/user_files/000/080/214/original/AN_logo_page.png"
             alt="Action Network Placeholder"
             className="mx-auto rounded-2xl shadow-xl max-w-full transform transition-transform hover:scale-105"
-          />
+          /></a>
         </motion.div>
       </section>
 
@@ -230,25 +256,7 @@ export default function FiftyMarchesLandingPage() {
           transition={{ duration: 0.8 }}
           className="max-w-3xl mx-auto text-center"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-blue-800">Stay Connected Beyond 2/5/25</h2>
-          <p className="mb-4 text-lg">Enter your email to receive updates on future actions and ways to keep resisting Project 2025:</p>
-          <form className="flex flex-col sm:flex-row gap-2 mb-4 justify-center items-center">
-            <input
-              type="email"
-              className="border border-gray-300 p-2 rounded-md w-full sm:w-2/3 focus:outline-none focus:ring-2 focus:ring-blue-300"
-              placeholder="Enter your email"
-            />
-            <Button className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-2xl font-semibold transition-transform transform hover:scale-105">
-              Sign Up
-            </Button>
-          </form>
-          <div className="flex gap-4 justify-center mt-4">
-            {/* Replace # with actual links */}
-            <a href="#" className="text-blue-600 hover:underline">Facebook</a>
-            <a href="#" className="text-blue-600 hover:underline">Twitter</a>
-            <a href="#" className="text-blue-600 hover:underline">Instagram</a>
-            <a href="#" className="text-blue-600 hover:underline">TikTok</a>
-          </div>
+        <ActionNetworkWidget />
         </motion.div>
       </section>
 
@@ -287,9 +295,9 @@ export default function FiftyMarchesLandingPage() {
           </div>
           <div className="md:w-1/2 order-1 md:order-2">
             <img
-              src="https://via.placeholder.com/600x400"
-              alt="Mutual Aid Placeholder"
-              className="w-full h-auto rounded-2xl shadow-xl transform transition-transform hover:scale-105"
+              src="./assets/stronger_together.webp"
+              alt="Mutual Aid"
+              className="w-2/3 h-auto mx-auto rounded-2xl shadow-xl transform transition-transform hover:scale-105"
             />
           </div>
         </motion.div>
@@ -331,11 +339,6 @@ export default function FiftyMarchesLandingPage() {
       <footer className="bg-blue-600 text-white py-6 text-center">
         <div className="max-w-3xl mx-auto px-4">
           <p className="mb-2 font-semibold">Managed by volunteer organizers of #50Marches—working in service to our communities.</p>
-          <p className="mb-2">© 2025 #50Marches. All rights reserved.</p>
-          <div className="flex justify-center gap-4">
-            <a href="#" className="hover:underline">Terms</a>
-            <a href="#" className="hover:underline">Privacy</a>
-          </div>
         </div>
       </footer>
     </main>

@@ -74,6 +74,7 @@ web_modules/
 
 # dotenv environment variable files
 .env
+<<<<<<< HEAD
 .env.development.local
 .env.test.local
 .env.production.local
@@ -132,3 +133,6 @@ dist
 # Additional project-specific ignores
 .aider*
 .DS_Store
+=======
+node_modules
+>>>>>>> 8b91cd6c (Added action network widget, new assets, and updated landing page)
