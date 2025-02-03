@@ -334,7 +334,21 @@ export default function FiftyMarchesLandingPage() {
           </p>
         </motion.div>
       </section>
-
+      
+      {/* Connect With Us */}
+      <section className="p-8 bg-gray-100">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-2xl font-bold mb-4 text-blue-800">Connect With Us</h2>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a className="text-blue-600 hover:underline" href="https://50501movement.carrd.co/">Website</a>
+            <a className="text-blue-600 hover:underline" href="mailto:50501movement@gmail.com">Email</a>
+            <a className="text-blue-600 hover:underline" href="https://www.instagram.com/50501movement">Instagram</a>
+            <a className="text-blue-600 hover:underline" href="https://www.reddit.com/r/50501/">Reddit</a>
+            <a className="text-blue-600 hover:underline" href="https://bsky.app/profile/50501movement.bsky.social">Bluesky</a>
+          </div>
+        </div>
+      </section>
+      
       {/* Footer */}
       <footer className="bg-blue-600 text-white py-6 text-center">
         <div className="max-w-3xl mx-auto px-4">
