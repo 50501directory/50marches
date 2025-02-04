@@ -35,7 +35,7 @@ export default function FiftyMarchesLandingPage() {
                   Organize a Protest
                 </Button>
               </a>
-              <a href="./protest-map">
+              <a href="./map">
                 <Button
                   variant="default"
                   size="lg"
