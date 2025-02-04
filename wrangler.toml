@@ -22,8 +22,6 @@ routes = [
 ]
 
 [kv_namespaces]
-# Ensure the KV namespace matches the one in your Cloudflare Workers settings
-[[kv_namespaces]]
 binding = "__STATIC_CONTENT"
 id = "50marches-workers_sites_assets"
 preview_id = "50marches-workers_sites_assets" # Optional, useful for development
