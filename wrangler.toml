@@ -1,10 +1,16 @@
 name = "50marches"
-type = "javascript"
-account_id = "YOUR_ACCOUNT_ID_HERE"
+main = "src/worker.ts"
+compatibility_date = "2023-10-05"
+account_id = "05c261edd97f9b2d0ac10037d401b327"
 workers_dev = true
-route = ""
-zone_id = ""
+
+[build]
+command = "npm run build"
+cwd = "."
 
 [site]
 bucket = "./build"
-entry-point = "workers-site"
+
+# wrangler.toml (wrangler v3.88.0^)
+[observability.logs]
+enabled = true
