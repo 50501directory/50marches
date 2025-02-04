@@ -5,7 +5,9 @@ account_id = "05c261edd97f9b2d0ac10037d401b327"
 workers_dev = true
 
 routes = [
-  { pattern = "50marches.com", custom_domain = true }
+  { pattern = "50marches.com", custom_domain = true },
+  { pattern = "50protests.com", custom_domain = true },
+  { pattern = "50marches.org", custom_domain = true }
 ]
 
 kv_namespaces = [
