@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
-import { ActionNetworkWidget } from "../components/action-network-widget.tsx";
 import { ProtestMap } from '../components/protest-map';
 
 export default function FiftyMarchesLandingPage() {
