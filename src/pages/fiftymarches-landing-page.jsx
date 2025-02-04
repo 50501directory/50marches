@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
 import { ActionNetworkWidget } from "../components/action-network-widget.tsx";
+import { ProtestMap } from '../components/protest-map';
 
 export default function FiftyMarchesLandingPage() {
   return (
@@ -11,56 +12,66 @@ export default function FiftyMarchesLandingPage() {
         className="relative p-8 text-center bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: "url('./assets/wontbackdown.png')" }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-40" /> {/* Dark overlay */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="relative w-4/5 max-w-[500px] mx-auto text-white py-16 px-4"
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-md">
-            United Against Project 2025
-          </h1>
-          <p className="text-lg sm:text-xl md:text-2xl mb-6 drop-shadow">
-            When policies are designed to put Americans last, our voices must rise. Join 50 Marches on 2/5/25 to defend liberty, equality, and justice.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="https://actionnetwork.org/events/a6e8df1602414d3f2cee8e93a0e4398398607189/edit"
-              rel="noopener noreferrer"
-            >
-              <Button variant="default" size="lg" className="rounded-2xl shadow-xl transition-transform transform hover:scale-105">
-                Organize a Protest
-              </Button>
-            </a>
-            <a
-              href="https://actionnetwork.org/event_campaigns/50-marches"
-              rel="noopener noreferrer"
-            >
-              <Button
-                variant="default"
-                size="lg"
-                className="rounded-2xl shadow-xl transition-transform transform hover:scale-105"
-              >
-                Find a Protest Near You
-              </Button>
-            </a>
-            <a
-              href="https://actionnetwork.org/event_campaigns/50-marches"
-              rel="noopener noreferrer"
-            >
-              <Button
-                variant="default"
-                size="lg"
-                className="rounded-2xl shadow-xl transition-transform transform hover:scale-105"
-              >
-                Support the Movement
-              </Button>
-            </a>
+          <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl" /> {/* Dark overlay only behind text */}
+          <div className="relative"> {/* Wrapper to keep text above overlay */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-md">
+              United Against Project 2025
+            </h1>
+            <p className="text-lg sm:text-xl md:text-2xl mb-6 drop-shadow">
+              When policies are designed to put Americans last, our voices must rise. Join 50 Marches on 2/5/25 to defend liberty, equality, and justice.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="https://linktr.ee/NoVoiceUnheard_2025">
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="rounded-2xl shadow-xl transition-transform transform hover:scale-105"
+                >
+                  Organize a Protest
+                </Button>
+              </a>
+              <a href="./protest-map">
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="rounded-2xl shadow-xl transition-transform transform hover:scale-105"
+                >
+                  Find a Protest Near You
+                </Button>
+              </a>
+              <a href="/resources" rel="noopener noreferrer">
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="rounded-2xl shadow-xl transition-transform transform hover:scale-105"
+                >
+                  Resources
+                </Button>
+              </a>
+            </div>
           </div>
         </motion.div>
       </section>
 
+      <section className="p-8 bg-white">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-5xl mx-auto"
+        >
+          <h2 className="text-3xl font-bold mb-4 text-blue-800">Find a Protest Near You</h2>
+          <ProtestMap className="h-[400px]" showTable={false} />
+        </motion.div>
+      </section>
+      
       {/* Wave divider */}
       <div className="bg-white">
         <svg
@@ -76,7 +87,7 @@ export default function FiftyMarchesLandingPage() {
       </div>
 
       {/* Why We March */}
-      <section className="p-8 bg-white">
+      <section className="p-8 bg-blue-50">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -128,7 +139,7 @@ export default function FiftyMarchesLandingPage() {
       </div>
 
       {/* Plan Your Protest */}
-      <section className="bg-blue-50 p-8">
+      <section className="bg-white p-8">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -180,7 +191,7 @@ export default function FiftyMarchesLandingPage() {
       </div>
 
       {/* Host a Protest */}
-      <section className="p-8 bg-white">
+      <section className="p-8 bg-blue-50">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -194,7 +205,7 @@ export default function FiftyMarchesLandingPage() {
             </h2>
             <p className="mb-4 text-lg">
               If the agenda to put Americans last resonates with you, take a stand.
-              Host a protest in your city and demonstrate that grassroots action can defy oppressive policies.
+              Organize a protest in your city and demonstrate that grassroots action can defy oppressive policies.
             </p>
             <ul className="list-disc list-inside text-lg">
               <li className="mb-2">
@@ -207,9 +218,13 @@ export default function FiftyMarchesLandingPage() {
                 Organize a peaceful demonstration that exemplifies unity and resolve.
               </li>
             </ul>
-            <Button className="mt-4 bg-blue-600 text-white hover:bg-blue-700 rounded-2xl shadow-xl px-6 py-2 font-semibold transition-transform transform hover:scale-105">
-              Sign Up to Host
-            </Button>
+            <a 
+              href="https://linktr.ee/NoVoiceUnheard_2025"
+            >
+              <Button className="mt-4 bg-blue-600 text-white hover:bg-blue-700 rounded-2xl shadow-xl px-6 py-2 font-semibold transition-transform transform hover:scale-105">
+                Add your local protest!
+              </Button>
+            </a>
           </div>
           <div className="md:w-1/2">
             <img
@@ -221,34 +236,8 @@ export default function FiftyMarchesLandingPage() {
         </motion.div>
       </section>
 
-      {/* Action Network Integration */}
-      <section className="bg-blue-50 p-8">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="max-w-3xl mx-auto text-center"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-blue-800">
-            Mobilize with Action Network
-          </h2>
-          <p className="mb-4 text-lg">
-            Our movement harnesses the power of Action Network to rally support against an agenda that puts Americans last.
-            Join us through this platform to organize, track participation, and spread the message of equal liberty.
-          </p>
-          <a href="https://actionnetwork.org/">
-            <img
-              src="https://actionnetwork.org/user_files/user_files/000/080/214/original/AN_logo_page.png"
-              alt="Action Network Placeholder"
-              className="mx-auto rounded-2xl shadow-xl max-w-full transform transition-transform hover:scale-105"
-            />
-          </a>
-        </motion.div>
-      </section>
-
       {/* Wave divider */}
-      <div className="bg-white">
+      <div className="bg-blue-50">
         <svg
           className="w-full h-12 text-white"
           viewBox="0 0 1280 40"
@@ -261,35 +250,9 @@ export default function FiftyMarchesLandingPage() {
         </svg>
       </div>
 
-      {/* Stay Connected */}
-      <section className="p-8 bg-white">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="max-w-3xl mx-auto text-center"
-        >
-        <ActionNetworkWidget />
-        </motion.div>
-      </section>
-
-      {/* Wave divider */}
-      <div className="bg-blue-50">
-        <svg
-          className="w-full h-12 text-blue-50"
-          viewBox="0 0 1280 40"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,10 C150,20 350,0 600,10 C850,20 1050,0 1280,10 L1280,40 L0,40 Z"
-            fill="currentColor"
-          ></path>
-        </svg>
-      </div>
 
       {/* Build Networks & Mutual Aid */}
-      <section className="bg-blue-50 p-8">
+      <section className="bg-white p-8">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -297,22 +260,19 @@ export default function FiftyMarchesLandingPage() {
           transition={{ duration: 0.8 }}
           className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8"
         >
-          <div className="md:w-1/2 order-2 md:order-1 mt-4 md:mt-0">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-blue-800">Keep the Movement Growing</h2>
-            <p className="mb-4 text-lg">
-              Collaborate with existing groups, churches, community centers, and grassroots networks. Embrace diversity of tactics
-              and people to strengthen our movement. Listen, respect differences, and focus on care and support.
-            </p>
-            <Button className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-2xl font-semibold transition-transform transform hover:scale-105">
-              Join Local Groups
-            </Button>
-          </div>
-          <div className="md:w-1/2 order-1 md:order-2">
+          <div className="md:w-1/2 order-1">
             <img
               src="./assets/stronger_together.webp"
               alt="Mutual Aid"
               className="w-2/3 h-auto mx-auto rounded-2xl shadow-xl transform transition-transform hover:scale-105"
             />
+          </div>
+          <div className="md:w-1/2 order-2 mt-4 md:mt-0">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-blue-800">Keep the Movement Growing</h2>
+            <p className="mb-4 text-lg">
+              Collaborate with existing groups, churches, community centers, and grassroots networks. Embrace diversity of tactics
+              and people to strengthen our movement. Listen, respect differences, and focus on care and support.
+            </p>
           </div>
         </motion.div>
       </section>
@@ -332,7 +292,7 @@ export default function FiftyMarchesLandingPage() {
       </div>
 
       {/* Manifesto Section */}
-      <section className="p-8 bg-white">
+      <section className="p-8 bg-blue-50">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -395,7 +355,7 @@ export default function FiftyMarchesLandingPage() {
               We the people reject the agenda proposed by the Heritage Foundation in its publication of Project 2025. Its rhetoric intends to divide, isolate, and alienate our society, as well as dismantle the foundational liberties of our country by attacking our institutions.
             </p>
             <p className="mb-4 text-lg">
-              The authors directly assault our individual liberties, targeting citizens by race, gender, sexual orientation, economic status, national origin, or by any means they choose. The policies proposed undermine systemic freedoms such as free education, free speech, labor and employment protections, and affordable healthcare.
+              The authors directly assaulted our individual liberties, targeting citizens by race, gender, sexual orientation, economic status, national origin, or by any means they choose. The policies proposed undermine systemic freedoms such as free education, free speech, labor and employment protections, and affordable healthcare.
             </p>
             <p className="mb-4 text-lg">
               The destructive political ideologies of the Foundation's president were made evident in his book, originally titled Dawn's Early Light: Burning Down Washington to Save America (before it was retitled).
@@ -488,9 +448,18 @@ export default function FiftyMarchesLandingPage() {
       {/* Footer */}
       <footer className="bg-blue-600 text-white py-6 text-center">
         <div className="max-w-3xl mx-auto px-4">
-          <p className="mb-2 font-semibold">This site is created by activists who support the 50501 movement but who are not the original organizers.</p>
+          <p className="mb-2 font-semibold">
+            This site is created by activists who support the 50501 movement but who are not the original organizers.
+          </p>
+          <p className="text-sm mt-2">
+            <a href="/resources" className="underline text-white hover:text-blue-200">
+              View Resources
+            </a>
+          </p>
         </div>
       </footer>
+
+
     </main>
   );
 } 
