@@ -10,11 +10,20 @@ cwd = "."
 
 [site]
 bucket = "./build"
+entry-point = "workers-site" # Add this if you're using a static site with Workers Sites.
 
 # wrangler.toml (wrangler v3.88.0^)
 [observability.logs]
 enabled = true
 
+# Correcting the route format
 routes = [
-  { pattern = "50marches.com", custom_domain = true }
+  { pattern = "50marches.com/*", custom_domain = true }
 ]
+
+[kv_namespaces]
+# Ensure the KV namespace matches the one in your Cloudflare Workers settings
+[[kv_namespaces]]
+binding = "__STATIC_CONTENT"
+id = "50marches-workers_sites_assets"
+preview_id = "50marches-workers_sites_assets" # Optional, useful for development
