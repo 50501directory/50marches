@@ -1,5 +1,147 @@
 export const protestData = [
-  // ... all the protest data from before ...
+    {
+        "state": "AK, Alaska",
+        "protests": [
+          {
+            "address": "State Capitol Building -- 120 4th St, Juneau, AK 99801",
+            "date": "2/5",
+            "time": "12:00 PM",
+            "organizers": "https://50501movement.carrd.co/",
+            "type": "Protest/ Rally",
+            "notes": "",
+            "coords": [
+              58.301935,
+              -134.41974
+            ]
+          }
+        ]
+      },
+      {
+        "state": "AZ, Arizona",
+        "protests": [
+          {
+            "address": "State Capitol Building --1700 W Washington St, Phoenix",
+            "date": "2/5",
+            "time": "12:00 PM",
+            "organizers": "https://50501movement.carrd.co/ reddit user - khaysis",
+            "type": "Protest/ Rally",
+            "notes": "",
+            "coords": [
+              33.448376,
+              -112.097275
+            ]
+          }
+        ]
+      },
+      {
+        "state": "AR, Arkansas",
+        "protests": [
+          {
+            "address": "State Capitol Building-500 Woodlane St, Little Rock, AR 72201",
+            "date": "2/5",
+            "time": "12:00 PM",
+            "organizers": "https://50501movement.carrd.co/",
+            "type": "Protest/ Rally",
+            "notes": "",
+            "coords": [
+              34.746483,
+              -92.288986
+            ]
+          }
+        ]
+      },
+      {
+        "state": "CA, California",
+        "protests": [
+          {
+            "address": "State Capitol Building -- 1315 10th St, Sacramento",
+            "date": "2/5",
+            "time": "12:00 PM",
+            "organizers": "https://50501movement.carrd.co/",
+            "type": "Protest/ Rally",
+            "notes": "has permit",
+            "coords": [
+              38.576668,
+              -121.493629
+            ]
+          },
+          {
+            "address": "cesar chavez park: 910 I Street, sacramento ca",
+            "date": "2/22",
+            "time": "10:00 AM",
+            "organizers": "",
+            "type": "Anti Mass Deportation Rally",
+            "notes": "",
+            "coords": [
+              38.576668,
+              -121.493629
+            ]
+          },
+          {
+            "address": "LA City Hall Central Park 200 N Main St., Los Angeles, CA",
+            "date": "2/5",
+            "time": "3:00 PM",
+            "organizers": "",
+            "type": "",
+            "notes": "",
+            "coords": [
+              34.052235,
+              -118.243683
+            ]
+          }
+        ]
+      },
+      {
+        "state": "CO, Colorado",
+        "protests": [
+          {
+            "address": "State Capitol west steps -- 200 E Colfax Ave, Denver",
+            "date": "2/5",
+            "time": "12:00:00 PM - 8pm",
+            "organizers": "https://50501movement.carrd.co/",
+            "type": "Protest/ Rally",
+            "notes": "has permit https://drive.google.com/file/d/1JNisyvBpG7n11WvT6KwfXcS0QnpwMBIo/view",
+            "coords": [
+              39.739236,
+              -104.990251
+            ]
+          }
+        ]
+      },
+      {
+        "state": "CT, Connecticut",
+        "protests": [
+          {
+            "address": "State Capitol Building -- 210 Capitol Ave, Hartford",
+            "date": "2/5",
+            "time": "12:00 PM",
+            "organizers": "https://50501movement.carrd.co/",
+            "type": "Protest/ Rally",
+            "notes": "",
+            "coords": [
+              41.76371,
+              -72.685097
+            ]
+          }
+        ]
+      },
+      {
+        "state": "DE, Delaware",
+        "protests": [
+          {
+            "address": "State Capitol Building -- 411 Legislative Ave, Dover",
+            "date": "2/5",
+            "time": "12:00PM - 4pm",
+            "organizers": "https://50501movement.carrd.co/",
+            "type": "Protest/ Rally",
+            "notes": "",
+            "coords": [
+              39.157307,
+              -75.519722
+            ]
+          }
+        ]
+      },
   {
     state: "AL, Alabama",
     protests: [
@@ -13,7 +155,8 @@ export const protestData = [
         coords: [32.377716, -86.300568]
       }
     ]
-  },  {
+  },
+  {
     state: "HI, Hawaii",
     protests: [
       {

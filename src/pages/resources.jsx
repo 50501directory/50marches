@@ -29,108 +29,122 @@ export default function ResourcesPage() {
     }
   }
 
+  const loadResources = async () => {
+    try {
+      const response = await fetch(
+        "https://docs.google.com/spreadsheets/d/1-rraq_sRU6n-rvGj45AxscxouGVcH03efhMQHJYzc6w/export?format=xlsx&gid=2051882056"
+      );
+      const arrayBuffer = await response.arrayBuffer();
+
+      const workbook = XLSX.read(arrayBuffer, {
+        cellStyles: true,
+        cellDates: true,
+        cellNF: true,
+        sheetStubs: true,
+      });
+
+      const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+      const data = XLSX.utils.sheet_to_json(firstSheet);
+
+      // Find where state laws section begins
+      const stateLawsStartIndex = data.findIndex((row) =>
+        Object.values(row).some(
+          (val) =>
+            val &&
+            typeof val === "string" &&
+            val.includes("Protester Rights and Laws by state")
+        )
+      );
+
+      // Process state laws
+      const stateLawsData = data.slice(stateLawsStartIndex + 2); // Skip header rows
+      const processedStateLaws = {};
+      stateLawsData.forEach((row) => {
+        if (row["Immigration Resources"]) {
+          processedStateLaws[row["Immigration Resources"]] = {
+            permitInfo: row[""],
+            unlawfulAssembly: row["_1"],
+            failureToDisperse: row["_2"],
+          };
+        }
+      });
+
+      setStateLaws(processedStateLaws);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error loading resources:", error);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const loadResources = async () => {
-      try {
-        const response = await fetch(
-          "https://docs.google.com/spreadsheets/d/1-rraq_sRU6n-rvGj45AxscxouGVcH03efhMQHJYzc6w/export?format=xlsx&gid=2051882056"
-        );
-        const arrayBuffer = await response.arrayBuffer();
-
-        const workbook = XLSX.read(arrayBuffer, {
-          cellStyles: true,
-          cellDates: true,
-          cellNF: true,
-          sheetStubs: true,
-        });
-
-        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-        const data = XLSX.utils.sheet_to_json(firstSheet);
-
-        // Find where state laws section begins
-        const stateLawsStartIndex = data.findIndex((row) =>
-          Object.values(row).some(
-            (val) =>
-              val &&
-              typeof val === "string" &&
-              val.includes("Protester Rights and Laws by state")
-          )
-        );
-
-        // Separate data into different sections
-        const beforeStateLaws = data.slice(0, stateLawsStartIndex);
-        const stateLawsData = data.slice(stateLawsStartIndex + 2); // Skip header rows
-
-        // Process state laws
-        const processedStateLaws = {};
-        stateLawsData.forEach((row) => {
-          if (row["Immigration Resources"]) {
-            processedStateLaws[row["Immigration Resources"]] = {
-              permitInfo: row[""],
-              unlawfulAssembly: row["_1"],
-              failureToDisperse: row["_2"],
-            };
-          }
-        });
-
-        // Attach original sheet row number to each item in beforeStateLaws.
-        // Assuming the first row of JSON corresponds to row 2 of the sheet (i.e. row 1 is the header)
-        const beforeStateLawsWithRow = beforeStateLaws.map((item, idx) => ({
-          ...item,
-          _rowNum: idx + 2,
-        }));
-
-        // Process immigration resources:
-        // - Exclude rows that contain "red card" in the column.
-        // - Extract hyperlink from the first column (assumed to be column A) if available.
-        const immigrationResources = beforeStateLawsWithRow
-          .filter(
-            (item) =>
-              !item["Immigration Resources"]?.toLowerCase().includes("red card")
-          )
-          .map((item) => {
-            const rowNumber = item._rowNum;
-            const cellAddress = `A${rowNumber}`; // Assuming the link is in column A
-            const title = item["Immigration Resources"]?.trim() || "";
-            let link = "";
-            // Attempt to extract the hyperlink from the first column cell, if present.
-            if (
-              firstSheet[cellAddress] &&
-              firstSheet[cellAddress].l &&
-              firstSheet[cellAddress].l.Target
-            ) {
-              link = firstSheet[cellAddress].l.Target;
-            }
-            // Fallback: use the link provided in "Immigration Resources_1" (if present).
-            if (!link) {
-              link = (item["Immigration Resources_1"]?.trim() || "");
-            }
-            if (link && !/^https?:\/\//.test(link)) {
-              link = `https://${link}`;
-            }
-            const description = item[""]?.trim() || "";
-            return { title, description, link };
-          })
-          .filter((item) => item.title && item.description);
-
-        console.log("Processed immigration resources:", immigrationResources);
-
-        setStateLaws(processedStateLaws);
-        setResources({ immigrationResources });
-        setLoading(false);
-      } catch (error) {
-        console.error("Error loading resources:", error);
-        setLoading(false);
-      }
-    };
-
     loadResources();
   }, []);
 
-  const filteredResources = resources.immigrationResources.filter(resource =>
-    resource.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    resource.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const immigrationResources = [
+    {
+      title: "Protecting Immigrant Families Toolkit",
+      description: "Comprehensive guide for families facing deportation, including legal rights, counseling resources, and support for children and families.",
+      link: "https://childrenthriveaction.org/2025/01/protecting-immigrant-families-toolkit/"
+    },
+    {
+      title: "ConsulApp Contigo",
+      description: "Official Mexican Government Emergency App providing immediate support for detentions, legal guidance, and 24/7 consular services. Features emergency alerts and direct connection to CIAM (Centro de Información y Asistencia a Personas Mexicanas).",
+      link: "https://apps.apple.com/us/app/consulapp-contigo/id6740634286"
+    },
+    {
+      title: "Juntos Seguros - ICE Raid Alerts",
+      description: "Real-time nationwide alerts of ICE raids in your area. Platform for anonymously reporting ICE sightings and activity.",
+      link: "https://www.juntosseguros.com/"
+    },
+    {
+      title: "National Immigration Legal Services Directory",
+      description: "Comprehensive directory of immigration legal service providers across the United States.",
+      link: "https://www.immigrationadvocates.org/legaldirectory/"
+    },
+    {
+      title: "Family Preparedness Plan Guide",
+      description: "Step-by-step guide for creating a family preparedness plan in case of immigration enforcement actions.",
+      link: "https://www.ilrc.org/resources/step-step-family-preparedness-plan"
+    },
+    {
+      title: "Rapid Response Toolkit",
+      description: "Resources and guidance for immediate response to immigration enforcement actions.",
+      link: "https://www.cliniclegal.org/toolkits/rapid-response-toolkit"
+    },
+    {
+      title: "Supporting Young Children - Separation & Trauma",
+      description: "Guidelines for supporting children experiencing family separation and trauma due to immigration enforcement.",
+      link: "https://www.zerotothree.org/resource/supporting-young-children-experiencing-separation-and-trauma"
+    },
+    {
+      title: "School Guidance for Immigrant Families",
+      description: "Post-election guidance for schools supporting immigrant students and families.",
+      link: "https://acrobat.adobe.com/id/urn:aaid:sc:VA6C2:c0e2a016-341c-4c13-87bd-b0a5437053b1"
+    },
+    {
+      title: "AAPI Post-Election Resource Guide",
+      description: "Comprehensive resource guide for Asian Americans and Pacific Islanders (AAPIs) addressing immigration concerns.",
+      link: "https://aapiequityalliance.org/wp-content/uploads/2025/01/AAPI-Equity-Alliance-Post-Election-Resource-Guide_01.23.2025.pdf"
+    },
+    {
+      title: "BAILA Network",
+      description: "Benefits Access for Immigrants Los Angeles - Support for accessing benefits and services in the LA area.",
+      link: "https://www.bailanetwork.org/"
+    },
+    {
+      title: "California Primary Care Association - Immigrant Resources",
+      description: "Healthcare resources and support services for immigrants in California.",
+      link: "https://www.cpca.org/CPCA/CPCA/Health_Center_Resources/IMMIGRANT_RESOURCES/CPCA/HEALTH_CENTER_RESOURCES/Immigration_Resources.aspx"
+    }
+  ];
+
+  const filteredResources = searchTerm
+    ? immigrationResources.filter(resource =>
+        resource.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        resource.description.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : immigrationResources;
 
   return (
     <>
@@ -178,50 +192,52 @@ export default function ResourcesPage() {
         </section>
 
         {/* Navigation Menu */}
-        <section className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-md">
-          <div className="max-w-6xl mx-auto py-4 px-4">
-            <div className="flex flex-wrap gap-3 justify-center">
-              <Button 
-                onClick={() => scrollToSection(redCardsRef)}
-                variant="outline"
-                className="bg-white hover:bg-blue-50 text-blue-600 border-blue-200"
-              >
-                Know Your Rights Cards
-              </Button>
-              <Button 
-                onClick={() => scrollToSection(immigrationRef)}
-                variant="outline"
-                className="bg-white hover:bg-blue-50 text-blue-600 border-blue-200"
-              >
-                Immigration Resources
-              </Button>
-              <Button 
-                onClick={() => scrollToSection(stateLawsRef)}
-                variant="outline"
-                className="bg-white hover:bg-blue-50 text-blue-600 border-blue-200"
-              >
-                Protester Rights by State
-              </Button>
-              <Button 
-                onClick={() => scrollToSection(reproductiveRef)}
-                variant="outline"
-                className="bg-white hover:bg-rose-50 text-rose-600 border-rose-200"
-              >
-                Reproductive Health
-              </Button>
-              <Button 
-                onClick={() => scrollToSection(lgbtqRef)}
-                variant="outline"
-                className="bg-gradient-to-r from-red-500 via-yellow-500 to-violet-500 bg-clip-text text-transparent border-red-200 hover:bg-white/10"
-              >
-                LGBTQIA+ Resources
-              </Button>
+        <div className="sticky top-0 z-50">
+          <section className="bg-white/95 backdrop-blur-sm shadow-md border-b border-blue-100">
+            <div className="max-w-6xl mx-auto py-3 px-4">
+              <div className="flex flex-wrap gap-2 sm:gap-3 justify-center">
+                <Button 
+                  onClick={() => scrollToSection(redCardsRef)}
+                  variant="outline"
+                  className="text-sm sm:text-base bg-white hover:bg-blue-50 text-blue-600 border-blue-200 transition-colors"
+                >
+                  Know Your Rights Cards
+                </Button>
+                <Button 
+                  onClick={() => scrollToSection(immigrationRef)}
+                  variant="outline"
+                  className="text-sm sm:text-base bg-white hover:bg-blue-50 text-blue-600 border-blue-200 transition-colors"
+                >
+                  Immigration Resources
+                </Button>
+                <Button 
+                  onClick={() => scrollToSection(stateLawsRef)}
+                  variant="outline"
+                  className="text-sm sm:text-base bg-white hover:bg-blue-50 text-blue-600 border-blue-200 transition-colors"
+                >
+                  Protester Rights by State
+                </Button>
+                <Button 
+                  onClick={() => scrollToSection(reproductiveRef)}
+                  variant="outline"
+                  className="text-sm sm:text-base bg-white hover:bg-rose-50 text-rose-600 border-rose-200 transition-colors"
+                >
+                  Reproductive Health
+                </Button>
+                <Button 
+                  onClick={() => scrollToSection(lgbtqRef)}
+                  variant="outline"
+                  className="text-sm sm:text-base bg-gradient-to-r from-red-500 via-yellow-500 to-violet-500 bg-clip-text text-transparent border-red-200 hover:bg-white/10 transition-colors"
+                >
+                  LGBTQIA+ Resources
+                </Button>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
 
         {/* Red Cards Section */}
-        <section className="p-8 bg-white">
+        <section className="p-8 bg-white" ref={redCardsRef} >
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -243,11 +259,17 @@ export default function ResourcesPage() {
                   { lang: 'Português', file: 'red_card-portuguese.pdf' },
                   { lang: 'Français', file: 'red_card-french.pdf' },
                   { lang: 'Kreyòl Ayisyen', file: 'red_card-haitian-creole.pdf' },
-                  { lang: 'हिंदी', file: 'red_card-hindi.pdf' },
+                  { lang: 'Hmong', file: 'red_card-hmong.pdf' },
                   { lang: '한국어', file: 'red_card-korean.pdf' },
                   { lang: 'Tagalog', file: 'red_card-tagalog.pdf' },
                   { lang: 'Tiếng Việt', file: 'red_card-vietnamese.pdf' },
-                  { lang: 'ગુજરાતી', file: 'red_card-gujarati.pdf' }
+                  { lang: 'فارسی', file: 'red_card-farsi.pdf' },
+                  { lang: 'ភាសាខ្មែរ', file: 'red_card-khmer.pdf' },
+                  { lang: 'پښتو', file: 'red_card-pashto.pdf' },
+                  { lang: 'ትግርኛ', file: 'red_card-tigrinya.pdf' },
+                  { lang: 'українська мова', file: 'red_card-ukrainian.pdf' },
+                  { lang: 'ਪੰਜਾਬੀپنجابی', file: 'red_card-punjabi.pdf' },
+                  { lang: 'русский язык', file: 'red_card-russian.pdf' }
                 ].map((item, index) => (
                   <motion.div
                     key={item.lang}
@@ -278,19 +300,9 @@ export default function ResourcesPage() {
           </motion.div>
         </section>
 
-        {/* Search Section */}
-        <section className="p-8 bg-white">
+        <section className="p-8 bg-white" ref={immigrationRef} >
           <div className="max-w-5xl mx-auto">
             <h2 className="text-3xl font-bold mb-6 text-blue-800">Immigration Resources</h2>
-            <div className="mb-8">
-              <input
-                type="text"
-                placeholder="Search resources..."
-                className="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
           </div>
         </section>
 

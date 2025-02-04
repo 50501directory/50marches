@@ -4,24 +4,20 @@ compatibility_date = "2023-10-05"
 account_id = "05c261edd97f9b2d0ac10037d401b327"
 workers_dev = true
 
+routes = [
+  { pattern = "50marches.com", custom_domain = true }
+]
+
+kv_namespaces = [
+  { binding = "ASSETS", id = "57171e1463964be4830965c22a832af7", preview_id = "57171e1463964be4830965c22a832af7" }
+]
+
+[site]
+bucket = "./build"
+
 [build]
 command = "npm run build"
 cwd = "."
 
-[site]
-bucket = "./build"
-entry-point = "workers-site" # Add this if you're using a static site with Workers Sites.
-
-# wrangler.toml (wrangler v3.88.0^)
-[observability.logs]
-enabled = true
-
-# Correcting the route format
-routes = [
-  { pattern = "50marches.com/*", custom_domain = true }
-]
-
-[kv_namespaces]
-binding = "__STATIC_CONTENT"
-id = "50marches-workers_sites_assets"
-preview_id = "50marches-workers_sites_assets" # Optional, useful for development
+[observability]
+logs = { enabled = true }
